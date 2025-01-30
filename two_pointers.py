@@ -230,12 +230,101 @@ Note that [10, 5, 2] is not included as the product of 100 is not strictly less 
 
 what we can do is 
 [10,50,100,600]
-[600,60,12,,6]
+add one at the begininng of the list of numbers => [1,10,50,100,600]
+initilize the value count = 0
+l = 0
+r = 1 
+while l < r < len(product):
+    while product[r]/product[l] < target:
+        r +=1
+    count+= (r-l-1)
+    l +=1
+return count 
+
+
 '''
+# def countContinuousSubarrays(nums,target):
+#     val = 1
+#     product = []
+#     for i in range(len(nums)):
+#         val = val * nums[i]
+#         product.append(val)
+#     l = 0
+#     r = 1 
+#     count = 0
+#     product = [1] + product
+#     while l < r < len(product):
+#         while product[r]/product[l] < target and l < r< len(product):
+#             r +=1
+#         count+= (r-l-1)
+#         l +=1
+#     return count 
+
+# assert (countContinuousSubarrays([10,5,2,6],100)) == 8
+# assert (countContinuousSubarrays([1,2,3,4,5],100)) == 13
 
 
 '''
 Given an integer array nums and an integer k, return the maximum length of a 
 subarray that sums to k. If there is not one, return 0 instead.
 
+
 '''
+
+
+
+'''
+For this problem, your goal is to sort an array of 0, 1 and 2's but you must do this in place, in linear time
+and without any extra space (such as creating an extra array). 
+This is called the Dutch national flag sorting problem.
+For example, if the input array is [2,0,0,1,2,1] then your program should output [0,0,1,1,2,2] and
+the algorithm should run in O(n) time.
+
+[2,0,0,1,2,1]
+l = 0
+r = 5
+m = 1
+for i in range(l+1,r):
+    if m 
+
+The algorithm needs to run in O(n): time complexity. You have to sort this in-place, no additional space is allowed. 
+'''
+
+def dutchFlagProblem(nums):
+    l = 0 
+    r = len(nums)-1
+    m = 0
+    while m <= r:
+        if nums[m] == 0:
+            nums[l],nums[m] = nums[m], nums[l]
+            m+=1
+            l +=1
+        elif nums[m] == 2:
+            nums[r],nums[m] = nums[m], nums[r]
+            r -=1
+        else:
+            m+=1
+    return nums
+
+print(dutchFlagProblem([2,0,2,2,2,2,1,1,1,1,0,0,2,2,1]))
+
+# [2,0,0,1,2,1]
+
+def findShortestLength(nums):
+    l = 0
+    r = len(nums)-1
+    arr = []
+    while l < r:
+        min_val = min(nums[l:])
+        max_val = max(nums[:r+1])
+        min_indx = nums.index(min_val)
+        max_indx = nums.index(max_val)
+        if min_indx == l and max_indx == r:
+                    l+=1
+                    r-=1
+        else:
+            return nums[l:r+1]     
+    return []
+
+
+            
