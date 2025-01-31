@@ -48,11 +48,21 @@ def reverseWords(s):
         ans += swap(s,i,len(s)-1)
     return ans[:-1] if ans.endswith(" ") else ans 
 
+def reverseWords2(s):
+    words = s.split(" ")
+    s = words
+    s = [i for i in s if i]
+    return " ".join(s[::-1])
+        
 
 class ReverseWordsConversion(unittest.TestCase):
     def test_example(self):
         self.assertEqual("world hello",reverseWords("  hello world  "))
         self.assertEqual("the sky is blue",reverseWords("blue is sky the"))
+        self.assertEqual("the sky is blue",reverseWords2("blue is sky the"))
+        self.assertEqual("world hello",reverseWords2("  hello world  "))
+
+
 
 if __name__ == "__main__":
     unittest.main()
