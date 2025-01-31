@@ -25,7 +25,6 @@ we can see the pattern:
 import unittest
 
 def zigzag_conversion(s,numRows):
-    #changing comments
     res = []
     def find_values(row_index):
                 values_index = []
