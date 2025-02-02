@@ -8,6 +8,13 @@ Generally what we can do is
 3. calculate the diameter 
 We have to return the maximum_length of either left side or right side. 
 '''
+from typing import Optional 
+
+class TreeNode:
+    def __init__(self,val=0,left=None,right=None):
+        self.val = val 
+        self.left = left 
+        self.right = right 
 
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
@@ -68,3 +75,23 @@ class Solution:
         self.invertTree(root.left)
         self.invertTree(root.right)
         return root
+        
+        '''
+        Binary Tree Maximum Path Sum 
+        The core idea here is recursively calculate the value of the left side/right right 
+        if the left_side, right_side is smaller than 0, then we prune that subtree -> use max(left_side,0) -> always ensure we have 0 as minimum.
+        total here is to calculate the cumulative sum from both left/right sides
+        
+        '''
+    def maxPathSum(self,root:Optional[TreeNode]):
+        total = -float("inf")
+
+        def calculate_path(node):
+            if not node:
+                return 0 
+            left_side = max(calculate_path(node.left),0)
+            right_side = max(calculate_path(node.right),0)
+            total = max(total, node.val + left_side + right_side)
+            return node.val + max(left_side,right_side)
+        calculate_path(root)
+        return total 
