@@ -8,7 +8,7 @@ Generally what we can do is
 3. calculate the diameter 
 We have to return the maximum_length of either left side or right side. 
 '''
-from typing import Optional 
+from typing import Optional, List
 
 class TreeNode:
     def __init__(self,val=0,left=None,right=None):
@@ -34,7 +34,7 @@ class Solution:
 
         Similarly, we can apply the same logic to calculate the diameter of N-Ary Tree
         '''
-    def diameter(self, root: 'Node') -> int:
+    def diameterOfNAryTree(self, root: 'Node') -> int:
         """
         :type root: 'Node'
         :rtype: int
@@ -96,6 +96,55 @@ class Solution:
         calculate_path(root)
         return total 
     
+    def right_side_view(self,root:Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        queue = deque([root])
+        ans = []
+        while queue:
+            queue_length = len(queue)
+            for i in range(queue_length):
+                node = queue.popleft()
+                if i == queue_length - 1:
+                    ans.append(node.val)  
+                if node.left != None:
+                    queue.append(node.left) 
+                if node.right != None:
+                    queue.append(node.right) 
+        return ans  
+
+        def zigzagLevelOrder(self,root:Optional[TreeNode]) -> List[List[int]]:
+            '''
+            so the core idea here is that you need to know how many nodes are there on each level.
+            Usually the first level is always a root node -> so u know that it is 1.
+            So, u keep track of the number of nodes on the first level. 
+            You can still add more nodes to the queue. 
+
+            '''
+            levels = []
+            if not root:
+                return []
+            def helper(root, level):
+                queue = deque([root])
+                left_to_right = True
+                while queue:
+                    number_of_nodes_on_level = len(queue)
+                    list_of_nodes = deque()
+                    for _ in range(number_of_nodes_on_level):
+                        node = queue.popleft()
+                        if left_to_right:
+                            list_of_nodes.append(node.val)
+                        else:
+                            list_of_nodes.appendleft(node.val)
+                        if node.left:
+                            queue.append(node.left)
+                        if node.right:
+                            queue.append(node.right)
+                    left_to_right = not left_to_right
+                    levels.append(list(list_of_nodes))
+            helper(root,0)
+            return levels
+
 
 class BinaryTree_Iterator():
     '''
@@ -185,3 +234,6 @@ class BinaryTree_Iterator():
     
     def hasNext(self) -> bool:
         return len(self.stack) >0
+    
+
+
