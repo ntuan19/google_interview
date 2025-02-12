@@ -49,6 +49,8 @@ class TestZigzagConversion(unittest.TestCase):
         self.assertEqual("PINALSIGYAHRPI", zigzag_conversion("PAYPALISHIRING", 4))
         self.assertEqual("A", zigzag_conversion("A", 1))
 
+
+
 if __name__ == "__main__":
     unittest.main()
 
