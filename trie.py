@@ -51,6 +51,7 @@ class TriePrefix():
         return prefix 
 
 prefixTrie = TriePrefix(["","f"])
+
 prefixTrie.createTrie()
 prefixTrie.traverse()
 prefixTrie.findLongestCommonPrefix()

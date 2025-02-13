@@ -1,4 +1,5 @@
 
+import heapq
 class Node():
     def __init__(self,val=0,next=None):
          self.val = val 
@@ -110,4 +111,31 @@ class HashMap():
             prev = node
             node = node.next 
 
+def mergeKSortedLists(lists:List[Optional[Node]]):
+    '''
+    When there are multiple list and they are not sorted, what should we do in order to merge all the list together?
+    The answer is consider using heapq.
+    Min heap data structure basically compares element 
+     (iterator1, iterator2, iterator3)
+     -> minheap would check if iterator1 is similar compared to others in the heap
+     -> if they are equal, they would use iterator2 
+    '''
+    minheap = []
+    counter = 0
+    for node in lists:
+        if node:
+            heapq.heappush(minheap,(node.val,counter,node))
+    dummyNode = Node(float("inf"))
+    head = dummyNode
+    while minheap:
+        node_val, currCounter, currNode = heapq.heappop(minheap)
+        head.next = currNode 
+        head = head.next 
+        if currNode.next:
+            counter+=1
+            heapq.heappush(currNode.next.val,counter,currNode.next)
+    return dummyNode.next 
+    
 
+
+    
