@@ -43,14 +43,14 @@ class TriePrefix():
     def findLongestCommonPrefix(self):
         node = self.root
         prefix = ""
-        while node and len(node.children) ==1:
+        while node and len(node.children) ==1 and node.count == len(self.strs):
             char = list(node.children)[0]
             prefix += char
             node = node.children[char]
         print(prefix)
         return prefix 
 
-prefixTrie = TriePrefix(["flower","flow","flight"])
+prefixTrie = TriePrefix(["","f"])
 prefixTrie.createTrie()
 prefixTrie.traverse()
 prefixTrie.findLongestCommonPrefix()
