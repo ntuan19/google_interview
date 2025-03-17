@@ -31,7 +31,7 @@ Output: -1
 
 
 '''
-from collections import deque
+from collections import deque, defaultdict 
 class BFSSolution:
     def shortestDistance(self, grid: List[List[int]]) -> int:
         '''
@@ -79,4 +79,31 @@ class BFSSolution:
                     min_val = min(min_val,cloned_grid[i][j][1])
         return min_val if min_val != float("inf") else -1 
 
-
+    def networkDelayTime(self,times,n,k) -> int:
+        '''
+        This problem asks if a signal from a node A can traverse and reach all other nodes in the network and if it does,
+        what is the least minimum time it needs to reach the all the nodes. 
+        So, what we use is a dijkstra algorithm to keep track of the min distance.
+        Use a minheap and append the (distance,node) into the heap
+        Another array/dictionary keeping track of the min distance needed to reach that node.
+        We pop the distance, node from the minheap. Checking node's neighbours and compare to see if 
+        the current distance in array is larger than the new distance, then we update the new distance
+        and append it into the heap.
+        '''
+        graph = defaultdict(list)
+        for u,v,w in times:
+            graph[u].append((v,w))
+        
+        #step 2: Initialize minheap and distance dictionary
+        min_heap = [(0,k)] #time,node
+        dist = {i:float("inf") for i in range(1,n+1)}
+        dist[k] = 0 
+        while min_heap:
+            time,node = heapq.heappop(min_heap)
+            for neigbhour,extra in graph[node]:
+                if time + extra < dist[neighbour]:
+                    dist[neigbhour] = time + extra
+                    heapq.heappush(min_heap,(time+extra,neighbour))
+        ans =  max(dist.values())
+        return ans if ans != float("inf") else -1  
+    
